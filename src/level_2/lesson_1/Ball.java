@@ -10,23 +10,25 @@ public class Ball extends Sprite{
             (int)(Math.random() * 255),
             (int)(Math.random() * 255));
 
-    Ball(GameWindow gameWindow){
-        x = gameWindow.getMouseX();
-        y = gameWindow.getMouseY();
-        setLeft(x);
-        setTop(y);
+    Ball(){
         halfHeight = 20 + (float)(Math.random() * 50f);
         halfWidth = halfHeight;
     }
 
+    Ball(int x, int y){
+        this();
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
-    void render(GameCanvas gameCanvas, Graphics g) {
+    public void render(GameCanvas gameCanvas, Graphics g) {
         g.setColor(color);
         g.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }
 
     @Override
-    void update(GameCanvas gameCanvas, float deltaTime) {
+    public void update(GameCanvas gameCanvas, float deltaTime) {
         x += vx * deltaTime;
         y += vy * deltaTime;
 

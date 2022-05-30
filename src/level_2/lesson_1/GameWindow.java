@@ -8,13 +8,8 @@ import java.awt.event.MouseEvent;
 public class GameWindow extends JFrame {
     private final int HEIGHT = 600;
     private final int WIDTH = 850;
-    private final int BUTTON_LEFT = 1;
-    private final int BUTTON_RIGHT = 3;
-    private Sprite[] sprites = new Sprite[10];
-    private Background background;
+    private GameObject[] gameObjects = new GameObject[1];
     private int lengthObject;
-    private float mouseX;
-    private float mouseY;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -25,13 +20,6 @@ public class GameWindow extends JFrame {
         });
     }
 
-    public float getMouseX() {
-        return mouseX;
-    }
-
-    public float getMouseY() {
-        return mouseY;
-    }
 
     private GameWindow(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -40,41 +28,42 @@ public class GameWindow extends JFrame {
         setTitle("Party");
         GameCanvas gameCanvas = new GameCanvas(this);
         add(gameCanvas);
-        background = new Background();
-        //initGame();
-        lengthObject = 0;
-        addMouseListener(new MouseAdapter() {
+        initGame();
+        gameCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                mouseX = e.getX();
-                mouseY = e.getY();
-                if(e.getButton() == BUTTON_LEFT) {
-                    addObject();
-                }else if(e.getButton() == BUTTON_RIGHT){
+                int x = e.getX();
+                int y = e.getY();
+                if(e.getButton() == MouseEvent.BUTTON1) {
+                    addObject(new Ball(x,y));
+                }else if(e.getButton() == MouseEvent.BUTTON3){
                     delObject();
                 }
             }
         });
         setVisible(true);
     }
-    private void addObject(){
-        sprites[lengthObject] = new Ball(this);
+    private void addObject(GameObject sprite){
+        if(gameObjects.length == lengthObject){
+            GameObject[] newGameObject = new GameObject[lengthObject * 2];
+            System.arraycopy(gameObjects,0,newGameObject,0,gameObjects.length);
+            gameObjects = newGameObject;
+        }
+        gameObjects[lengthObject] = sprite;
         lengthObject ++;
     }
 
     private void delObject(){
-        if(lengthObject > 0){
-            sprites[lengthObject - 1] = null;
+        if(lengthObject > 1){
+            gameObjects[lengthObject - 1] = null;
             lengthObject --;
         }
 
     }
 
     private void initGame(){
-        for (int i = 0; i < sprites.length; i++) {
-           sprites[i] = new Ball(this);
-        }
+       addObject(new Background());
+       addObject(new Sprite());
     }
 
     void onDrowFrame(GameCanvas gameCanvas, Graphics g, float deltaTime){
@@ -83,21 +72,16 @@ public class GameWindow extends JFrame {
     }
 
     private void render(GameCanvas gameCanvas, Graphics g) {
-        for (int i = 0; i < sprites.length; i++) {
-            if(sprites[i] != null) {
-                sprites[i].render(gameCanvas, g);
-            }
+        for (int i = 0; i < lengthObject; i++) {
+                gameObjects[i].render(gameCanvas, g);
         }
-        background.render(gameCanvas, g);
     }
 
     private void update(GameCanvas gameCanvas, float deltaTime) {
-        for (int i = 0; i < sprites.length; i++) {
-            if(sprites[i] != null) {
-                sprites[i].update(gameCanvas, deltaTime);
-            }
+        for (int i = 0; i < lengthObject; i++) {
+                gameObjects[i].update(gameCanvas, deltaTime);
+
         }
-        background.update(deltaTime);
     }
 
 }

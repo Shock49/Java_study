@@ -2,36 +2,22 @@ package level_2.lesson_1;
 
 import java.awt.*;
 
-public class Background {
-    private float red;
-    private float green;
-    private float blue;
-    private float step_color;
+public class Background implements GameObject {
 
-    Background(){
-        red = (float) (Math.random() * 255);
-        green = (float) (Math.random() * 255);
-        blue = (float) (Math.random() * 255);
-        step_color = 100f;
-    }
-    private float changeColor(float color, float deltaTime){
-        color = color + step_color * (float) (Math.sin(Math.random()*361)) * deltaTime;
-        if (color >= 255){
-            step_color = (float) (Math.random()*10f + 1);
-            return  255;
-        }else if (color <= 0){
-            step_color = (float) (Math.random()*10f + 1);
-           return  1;
-        }
-        return color;
-    }
+    private Color color;
+    private float time;
+    private final float AMPLITUDA_COLOR = 255 / 2f;
 
-    void render(GameCanvas gameCanvas, Graphics g){
-        gameCanvas.setBackground(new Color((int)red,(int)green,(int)blue));
+    @Override
+    public void render(GameCanvas gameCanvas, Graphics g){
+        gameCanvas.setBackground(color);
     }
-    void update(float deltaTime){
-        red = changeColor(red, deltaTime);
-        green = changeColor(green, deltaTime);
-        blue = changeColor(blue, deltaTime);
+    @Override
+    public void update(GameCanvas gameCanvas, float deltaTime){
+        time += deltaTime;
+        int red = Math.round(AMPLITUDA_COLOR + AMPLITUDA_COLOR * (float) Math.sin(time));
+        int green = Math.round(AMPLITUDA_COLOR + AMPLITUDA_COLOR * (float) Math.sin(time * 2));
+        int blue = Math.round(AMPLITUDA_COLOR + AMPLITUDA_COLOR * (float) Math.sin(time * 3));
+        color = new Color(red,green,blue);
     }
 }

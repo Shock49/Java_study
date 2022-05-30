@@ -7,7 +7,7 @@ public class GameCanvas extends JPanel {
     private final GameWindow gameWindow;
     private long lastFrameTime;
 
-    GameCanvas(GameWindow gameWindow){
+    public GameCanvas(GameWindow gameWindow){
         this.gameWindow = gameWindow;
         lastFrameTime = System.nanoTime();
         setBackground(Color.BLUE);

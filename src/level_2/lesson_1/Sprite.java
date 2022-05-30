@@ -2,7 +2,7 @@ package level_2.lesson_1;
 
 import java.awt.*;
 
-public class Sprite {
+public class Sprite implements GameObject {
     float x;
     float y;
     float halfWidth;
@@ -20,6 +20,6 @@ public class Sprite {
     public float getWidth() { return 2f * halfWidth;}
     public float getHeight() { return 2f * halfHeight;}
 
-    void render(GameCanvas gameCanvas, Graphics g){};
-    void update(GameCanvas gameCanvas, float deltaTime){};
+    public void render(GameCanvas gameCanvas, Graphics g){};
+    public void update(GameCanvas gameCanvas, float deltaTime){};
 }
