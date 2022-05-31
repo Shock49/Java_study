@@ -1,8 +1,11 @@
-package level_2.lesson_1;
+package level_2.lesson_1.game_two;
+
+import level_2.lesson_1.common.GameCanvas;
+import level_2.lesson_1.common.Sprite;
 
 import java.awt.*;
 
-public class Ball extends Sprite{
+public class Square extends Sprite {
     private float vx = 150 + (float)(Math.random() * 200f);
     private float vy = 150 + (float)(Math.random() * 200f);
     private final Color color = new Color(
@@ -10,12 +13,12 @@ public class Ball extends Sprite{
             (int)(Math.random() * 255),
             (int)(Math.random() * 255));
 
-    Ball(){
+    Square(){
         halfHeight = 20 + (float)(Math.random() * 50f);
         halfWidth = halfHeight;
     }
 
-    Ball(int x, int y){
+    Square(int x, int y){
         this();
         this.x = x;
         this.y = y;
@@ -24,7 +27,7 @@ public class Ball extends Sprite{
     @Override
     public void render(GameCanvas gameCanvas, Graphics g) {
         g.setColor(color);
-        g.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
+        g.fillRect((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }
 
     @Override

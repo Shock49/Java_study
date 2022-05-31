@@ -1,4 +1,4 @@
-package level_2.lesson_1;
+package level_2.lesson_1.common;
 
 import java.awt.*;
 

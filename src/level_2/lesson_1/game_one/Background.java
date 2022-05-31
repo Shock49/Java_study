@@ -1,4 +1,7 @@
-package level_2.lesson_1;
+package level_2.lesson_1.game_one;
+
+import level_2.lesson_1.common.GameCanvas;
+import level_2.lesson_1.common.GameObject;
 
 import java.awt.*;
 

@@ -1,11 +1,16 @@
-package level_2.lesson_1;
+package level_2.lesson_1.game_one;
+
+import level_2.lesson_1.common.CanvasListner;
+import level_2.lesson_1.common.GameCanvas;
+import level_2.lesson_1.common.GameObject;
+import level_2.lesson_1.common.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GameWindow extends JFrame {
+public class GameWindow extends JFrame implements CanvasListner {
     private final int HEIGHT = 600;
     private final int WIDTH = 850;
     private GameObject[] gameObjects = new GameObject[1];
@@ -66,7 +71,7 @@ public class GameWindow extends JFrame {
        addObject(new Sprite());
     }
 
-    void onDrowFrame(GameCanvas gameCanvas, Graphics g, float deltaTime){
+    public void onDrowFrame(GameCanvas gameCanvas, Graphics g, float deltaTime){
         update(gameCanvas, deltaTime);
         render(gameCanvas, g);
     }
